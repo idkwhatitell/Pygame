@@ -17,6 +17,22 @@ down = (0,1)
 right = (1,0)
 left = (-1,0)
 
+class FOOD: 
+    def __init__(self):
+        self.position = (0,0)
+        self.color = food_color
+        self.random_position()
+    def random_position(self):
+        self.position = (random.randint(0, grid_width-1)*grid_size, random.randint(0, grid_height-1)*grid_size)
+    def draw(self, surface):
+        rect = pygame.Rect((self.position[0],self.position[1]),(grid_size,grid_size))
+        pygame.draw.rect(surface,self.color,rect)
+
+
+
+
+
+
 def drawGrid(surface):
     for y in range (0,int(grid_height)):
         for x in range (0,int(grid_width)):
@@ -37,6 +53,8 @@ def main():
     surface = pygame.Surface(screen.get_size())
     surface = surface.convert()
 
+    food = FOOD()
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -44,6 +62,7 @@ def main():
                 sys.exit()
 
         drawGrid(surface)
+        food.draw(surface)
         screen.blit(surface,(0,0))
         pygame.display.update()
 
